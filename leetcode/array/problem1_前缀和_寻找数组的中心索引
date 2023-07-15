@@ -10,7 +10,7 @@ public:
         vector<int> preSum(nums.size());
         // 1 2 3
         // 1 3 6
-        for (int j = 0; j < nums.size(); j++)
+        for (int j = 0; j < nums.size(); j++)// 构造前缀和数组
         {
             if (j == 0) preSum[j] = nums[j];
             else preSum[j] = preSum[j-1] + nums[j];
@@ -20,10 +20,10 @@ public:
         {
             int sumL;
             if (i == 0) sumL = 0;
-            else sumL = preSum[i-1];
+            else sumL = preSum[i-1];// 使用前缀和数组
 
             int sumR;// i+1,nums.size()-1
-            sumR = preSum[nums.size()-1]-preSum[i];
+            sumR = preSum[nums.size()-1]-preSum[i];// 使用前缀和数组
 
             if (sumL == sumR) return i;
         }
