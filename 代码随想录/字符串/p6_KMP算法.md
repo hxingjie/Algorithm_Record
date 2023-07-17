@@ -11,7 +11,7 @@ public:
         // len >= 2
         for (int len = r ; len > 0; len--)// 穷举所有长度的前后缀
         {
-        	int lpos = 0, rpos = r-len+1;
+            int lpos = 0, rpos = r-len+1;
             for ( ; rpos <= r; lpos++, rpos++)
             {
             	if (s[lpos] != s[rpos]) break;
