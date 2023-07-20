@@ -32,7 +32,10 @@ ref:必须显示初始化
 out:必须在内部赋值
 值类型：基本数据类型、枚举类型、结构类型
 引用类型：string 类 接口 数组 
-    
+
+```
+
+ ```c#
 class Cube : IComparable<Cube>
 {
 	private int i;
@@ -50,5 +53,36 @@ class MyCompare : IComparer<int>
 		return lhs - rhs;
 	}
 }
+
+public class Solution
+    {
+        public class MyCompare : IComparer<int>// 比较类
+        {
+            public int Compare(int lhs, int rhs)
+            {
+                return rhs - lhs;
+            }
+        }
+        public int[] TopKFrequent(int[] nums, int k)
+        {
+            MyCompare myCompare = new MyCompare();// 实例化比较类
+            PriorityQueue<int, int> pq = new PriorityQueue<int, int>(myCompare);// 实例化pq
+	    // <int, int>(myCompare) 分别是元素类型，优先级类型，比较类
+            
+            // 迭代方式1
+            foreach (KeyValuePair<int,int> pair in dict)
+                pq.Enqueue(pair.Key, pair.Value);
+            // 迭代方式2
+            for (int i = 0; i < dict.Count; i++)
+            	pq.Enqueue(dict.ElementAt(i).Key,dict.ElementAt(i).Value);  
+
+            List<int> list = new List<int>();
+            for (int i = 0;i < k; i++) list.Add(pq.Dequeue());
+
+            int[] res = list.ToArray<int>();
+            return res;
+        }
+    }
+
 ```
 
