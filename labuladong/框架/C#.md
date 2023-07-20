@@ -20,9 +20,13 @@ SortedSet<T>: 不含重复元素，有序
 
 string.Substring(startIndex, len);
 
-T.Parse(stringvariable);
-variable.ToString();
-Convert.ToT(variable);
+byte ushort uint ulong
+sbyte short int long
+float double decimal
+
+int num = int.Parse("12"); string -> T
+string str = num.ToString(); T -> string
+num = Convert.ToInt32(str); T -> T
 
 ref:必须显示初始化
 out:必须在内部赋值
