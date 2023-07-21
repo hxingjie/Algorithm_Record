@@ -8,14 +8,18 @@ vector<int> onPath;
 
 /* 图遍历框架 */
 void dfs(Graph graph, int idx) {
-    if (visited[idx]) return;
+    if (visited[idx]) return;// 判断合法性
+
     // 经过节点 s，标记为已遍历
     visited[idx] = true;
+
     // 做选择：标记节点 s 在路径上
     onPath.push_back(idx);
+
     for (int neighbor : graph.neighbors(idx)) {
         traverse(graph, neighbor);
     }
+
     // 撤销选择：节点 s 离开路径
     onPath.pop_back();
 }
