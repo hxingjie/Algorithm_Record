@@ -1,3 +1,4 @@
+```c++
 int BFS(Node start, Node target) {
     queue<Node> q; 
     set<Node> visited;
@@ -24,3 +25,4 @@ int BFS(Node start, Node target) {
     }
     // 如果走到这里，说明在图中没有找到目标节点
 }
+```
