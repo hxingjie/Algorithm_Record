@@ -1,0 +1,61 @@
+# 找树左下角的值
+
+给定一个二叉树的 **根节点** `root`，请找出该二叉树的 **最底层 最左边** 节点的值。
+
+假设二叉树中至少有一个节点。
+
+```c++
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        if (root == nullptr) return 0;
+        queue<TreeNode*> q;
+        q.push(root);
+
+        int res;
+        while(!q.empty()){
+            int sz = q.size();
+            // step++
+            for (int i = 0; i < sz; i++)
+            {
+                TreeNode* node = q.front(); q.pop();
+                
+                // action
+                if (i == 0) res = node->val;
+
+                if (node->left != nullptr) q.push(node->left);
+                if (node->right != nullptr) q.push(node->right);
+            }
+        }
+        return res;
+    }
+};
+```
+
+```c#
+public class Solution {
+    public int FindBottomLeftValue(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> q = new Queue<TreeNode>();
+        q.Enqueue(root);
+
+        int res = 0;
+        while(q.Count > 0){
+            int sz = q.Count;
+            // step++
+            for (int i = 0; i < sz; i++)
+            {
+                TreeNode node = q.Dequeue();
+                
+                // action
+                if (i == 0) res = node.val;
+
+                if (node.left != null) q.Enqueue(node.left);
+                if (node.right != null) q.Enqueue(node.right);
+            }
+        }
+        return res;
+    }
+}
+```
+
