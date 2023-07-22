@@ -1,0 +1,41 @@
+# 左叶子之和
+
+给定二叉树的根节点 `root` ，返回所有左叶子之和。
+
+```c++
+public:
+    int sumOfLeftLeaves(TreeNode* root) {
+        if (root == nullptr 
+            || (root->left == nullptr
+                && root->right == nullptr)){// 如果是空结点或叶子结点，直接返回0
+            return 0;
+        }
+        int res = 0;
+        if (root->left != nullptr 
+            && root->left->left == nullptr
+            && root->left->right == nullptr){// 如果有左子树并且其是叶子结点，更新res
+            res += root->left->val;
+        }
+        return res + sumOfLeftLeaves(root->left)
+            + sumOfLeftLeaves(root->right);
+    }
+};
+```
+```c#
+public class Solution {
+    public int SumOfLeftLeaves(TreeNode root) {
+        if (root == null
+            || (root.left == null && root.right == null)){
+            return 0;
+        }
+        int res = 0;
+        if (root.left != null
+            && root.left.left == null
+            && root.left.right == null){
+            res += root.left.val;
+        }
+        return res + SumOfLeftLeaves(root.left)
+            + SumOfLeftLeaves(root.right);
+    }
+}
+```
