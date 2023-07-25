@@ -47,7 +47,7 @@ public class Solution
             return;
         }
 
-        for (int i = start; i <= n; i++)
+        for (int i = start; n-i+1 >= k-path.Count; i++)// 剩余的元素要大于等于所需的元素
         {
             path.Add(i);
             Traverse(n,k,i+1);
