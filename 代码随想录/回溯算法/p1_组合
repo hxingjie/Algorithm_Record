@@ -1,0 +1,64 @@
+# 组合
+
+给定两个整数 `n` 和 `k`，返回范围 `[1, n]` 中所有可能的 `k` 个数的组合。
+
+你可以按 **任何顺序** 返回答案。
+
+[77. 组合 - 力扣（LeetCode）](https://leetcode.cn/problems/combinations/description/)
+
+```c++
+class Solution {
+public:
+    vector<vector<int>> ans;
+    vector<int> path;
+    void traverse(int n, int k, int start){
+        if (path.size() == k){
+            ans.push_back(path);
+            return;
+        }
+
+        for (int i = start; i <= n; ++i) {
+            //
+            path.push_back(i);
+            traverse(n,k,i+1);
+            path.pop_back();
+        }
+        
+    }
+    vector<vector<int>> combine(int n, int k) {
+        traverse(n,k,1);
+        return ans;
+    }
+};
+```
+
+```c#
+public class Solution
+{
+    public IList<IList<int>> ans = new List<IList<int>>();
+    public IList<int> path = new List<int>();
+
+    public void Traverse(int n, int k, int start)
+    {
+        if (path.Count == k)
+        {
+            IList<int> temp = new List<int>(path);// path是引用变量
+            ans.Add(temp);
+            return;
+        }
+
+        for (int i = start; i <= n; i++)
+        {
+            path.Add(i);
+            Traverse(n,k,i+1);
+            path.Remove(i);
+        }
+    }
+        
+    public IList<IList<int>> Combine(int n, int k) {
+        Traverse(n,k,1);
+        return ans;
+    }
+}
+```
+
