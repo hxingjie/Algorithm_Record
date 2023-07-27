@@ -24,7 +24,7 @@ public:
             }else{
                 int minPace = INT_MAX;
                 for (int j = i-1; j >= 0; --j) {
-                    if (j+nums[j]>=i){
+                    if (j+nums[j]>=i){// 如果 j 可以跳跃到 i ，就检查是否更新最小步数
                         minPace = min(minPace, dp[j]+1);
                     }
                 }
