@@ -1,9 +1,9 @@
 ```c#
 无序键值对：Dictionary<TKey,TValue>
-           Hashtable
+          Hashtable
 有序键值对：SortedDictionary<TKey,TValue> 红黑树
-           SortedList<TKey,TValue> 列表
-           SortedList
+          SortedList<TKey,TValue> 列表
+          SortedList
 
 栈：Stack<T>    Stack
 队列：Queue<T>    Queue
