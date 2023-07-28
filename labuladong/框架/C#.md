@@ -42,15 +42,15 @@ class Cube : IComparable<Cube>
 
 	public int CompareTo(Cube other)
 	{
-		return this.i - other.i;
+		return this.i.CompareTo(other.i);
 	}
 }
 
 class MyCompare : IComparer<int>
 {
-	public int Compare(int lhs, int rhs)
+	public int Compare(Cube lhsCube, Cube rhsCube)
 	{
-		return lhs - rhs;
+		return lhsCube.i.CompareTo(rhsCube.i);
 	}
 }
 
