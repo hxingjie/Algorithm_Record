@@ -24,7 +24,34 @@ void dfs(Graph graph, int idx) {
     onPath.pop_back();
 }
 ```
+```c#
+public class Solution
+{
+    public List<int> onPath = new List<int>();
+    //public HashSet<int> isVisited = new HashSet<int>();
+    
+    public void Traverse(int[][] graph, int row)
+    {
+        if (isVisited.Contains(row))
+            return;
 
+        isVisited.Add(row);
+        onPath.Add(row);
+            
+        if (更新答案的条件成立)
+        {
+            onPath.RemoveAt(onPath.Count-1);
+            return;
+        }
+
+        for (int i = 0; i < graph[row].Length; i++)
+            Traverse(graph,graph[row][i]);
+            
+        onPath.RemoveAt(onPath.Count-1);
+
+    }
+}
+```
 
 
 ## 2.棋盘图问题
