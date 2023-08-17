@@ -1,16 +1,28 @@
+## Tips
 ```c++
+// 常用函数
 stod:string to double
 
+// 字符流的使用
 stringstream ss(str);
 vector<string> words;
 string word;
 while (getline(ss,word,' ')){
-	 if (!word.empty())
-		  words.push_back(word);s
+    if (!word.empty())
+        words.push_back(word);s
 }
 ss.clear();// 重置状态
 ss.str() = "";// 清空流
 
+scanf("%d-%d-%d, &n1, &n2, &n3);
+
+// 位运算
+位运算符：& ｜ ^异或  ~取反
+
+```
+---
+## STL
+```c++
 bool cmp(const int &lhs, const int &rhs){// 函数 sort函数可以用
     if (lhs > rhs){
         return true;
@@ -51,7 +63,4 @@ int main(){
 
     return 0;
 }
-
-位运算符：& ｜ ^异或  ~取反
 ```
-
