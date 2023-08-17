@@ -43,7 +43,7 @@ public:
     }
 };
 
-struct func{// 仿函数 map,set,priority_queue数据结构都可以用，sort函数也可以用
+class func{// 仿函数 map,set,priority_queue数据结构都可以用，sort函数也可以用
 public:
     bool operator () (const int &lhs, const int &rhs) const {
         if (lhs < rhs){
@@ -57,12 +57,12 @@ public:
 int main(){
     vector<int> nums;
     sort(nums.begin(),nums.end(),&cmp);
+
+    // 使用仿函数
     map<int,int,func> m;
-    m[1] = 2;
-    m[2] = 1;
-    for (auto elem : m) {
-        cout << elem.first << endl;
-    }
+    set<int,func> s;
+    priority_queue<int,vector<int>,func> q;
+    sort(m.begin(),m.end(),func());
 
     return 0;
 }
