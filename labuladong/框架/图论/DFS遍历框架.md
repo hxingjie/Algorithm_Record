@@ -1,5 +1,36 @@
 ## 1.图问题
 
+不合法 return
+达成结束条件 return
+
+到达结点
+
+做选择
+
+遍历
+
+撤销选择
+
+```c++
+void dfs() {
+    if (!isValid()) return;// 判断合法性
+    if (更新答案的条件成立 || 已经遍历到终点) return;// 结束递归
+
+    // 到达节点 s，标记为已遍历
+    visited[idx] = true;
+
+    // 做选择：标记节点 s 在路径上
+    onPath.push_back(idx);
+
+    for (int neighbor : graph.neighbors(idx)) {// 遍历周围结点
+        traverse(graph, neighbor);
+    }
+
+    // 撤销选择：节点 s 离开路径
+    onPath.pop_back();
+}
+```
+---
 ```c++
 // 记录被遍历过的节点
 vector<bool> visited;
