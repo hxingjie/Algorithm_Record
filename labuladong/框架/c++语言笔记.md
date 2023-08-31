@@ -2,6 +2,7 @@
 ```c++
 // 常用函数
 stod:string to double
+reverse(container.begin(), container.end());
 
 // 字符流的使用
 stringstream ss(str);
@@ -20,7 +21,7 @@ printf("%d-%02d-%02d\n", y, m, d);
 printf("%-06.2lf\n", num);// 0表示填充的字符，6表示整个数的位宽，2表示精确到几位小数，%-2d表示左对齐，不加-表示默认右对齐
 
 // 位运算
-位运算符：& ｜ ^异或  ~取反
+位运算符：& ｜ ^异或  ~取反  >>右移  <<左移
 
 ```
 ---
@@ -55,14 +56,11 @@ public:
 };
 
 int main(){
-    vector<int> nums;
-    sort(nums.begin(),nums.end(),&cmp);
-
     // 使用仿函数
     map<int,int,func> m;
     set<int,func> s;
     priority_queue<int,vector<int>,func> q;
-    sort(m.begin(),m.end(),func());
+    sort(nums.begin(),nums.end(),func());
 
     return 0;
 }
