@@ -1,70 +1,72 @@
 ```c++
-class Solution {
+class UF{
 public:
-    class UF{
-    public:
-        int cnt;
-        vector<int> parent;
-        UF(int n) : cnt(n){
-            parent = vector<int>(n);
-            for (int i = 0; i < n; ++i) {
-                parent[i] = i;
-            }
+    vector<int> parents;
+    UF(int n){
+        parents = vector<int>(n+1);
+        for (int i = 0; i <= n; ++i)
+            parents[i] = i;
+    }
+    int find_root(int n){
+        if (parents[n] != n){
+            parents[n] = find_root(parents[n]);
         }
-
-        void union_node(int l, int r){
-            int l_parent = find_parent(l);
-            int r_parent = find_parent(r);
-
-            if (l_parent == r_parent)
-                return;
-
-            parent[l_parent] = r_parent;
-            cnt--;
+        return parents[n];
+    }
+    void union_node(int lhs, int rhs){
+        int root1 = find_root(lhs);
+        int root2 = find_root(rhs);
+        if (root1 != root2){
+            parents[root2] = root1;
         }
-
-        int find_parent(int n){
-            if (parent[n] != n){
-                parent[n] = find_parent(parent[n]);
-            }
-            return parent[n];
-        }
-
-        bool isConnected(int l, int r){
-            return find_parent(l) == find_parent(r);
-        }
-
-    };
-    class cmp{
-    public:
-        bool operator () (const vector<int> &l, const vector<int> &r) const{
-            if (l[2] < r[2])
-                return true;
-            else
-                return false;
-        }
-    };
-    int minCostConnectPoints(vector<vector<int>>& points) {
-        vector<vector<int>> edges;
-        for (int i = 0; i < points.size(); ++i) {
-            for (int j = i+1; j < points.size(); ++j) {
-                int x1 = points[i][0], y1 = points[i][1];
-                int x2 = points[j][0], y2 = points[j][1];
-                vector<int> edge{i, j, abs(x1-x2) + abs(y1-y2)};
-                edges.push_back(edge);
-            }
-        }
-        sort(edges.begin(), edges.end(), cmp());
-        UF uf(points.size());
-        
-        int ans = 0;
-        for (int i = 0; i < edges.size(); ++i) {
-            if (!uf.isConnected(edges[i][0], edges[i][1])){
-                ans += edges[i][2];
-                uf.union_node(edges[i][0], edges[i][1]);
-            }
-        }
-        return ans;
     }
 };
+class Edge{
+public:
+    int from;
+    int to;
+    int weight;
+    Edge(int a, int b, int c) : from(a), to(b), weight(c) { }
+};
+class cmp{
+public:
+    bool operator () (const Edge &lhs, const Edge &rhs){
+        if (lhs.weight < rhs.weight)
+            return true;
+        else
+            return false;
+    }
+};
+int main(){
+    int n, m;
+    cin >> n >> m;
+    vector<Edge> edges;
+    for (int i = 0; i < m; ++i) {
+        int u, v, w;
+        scanf("%d %d %d", &u, &v, &w);
+        edges.push_back(Edge(u, v, w));
+    }
+
+    sort(edges.begin(), edges.end(), cmp());
+
+    int ans = 0;
+    UF uf(n);
+    for (Edge edge : edges) {
+        if (uf.find_root(edge.from) != uf.find_root(edge.to)){
+            ans += edge.weight;
+            uf.union_node(edge.from, edge.to);
+        }
+    }
+
+    int root = uf.find_root(uf.parents[1]);
+    for (int i = 2; i < uf.parents.size(); ++i) {
+        if (uf.find_root(uf.parents[i]) != root){
+            printf("impossible\n");
+            return 0;
+        }
+    }
+    printf("%d\n", ans);
+
+    return 0;
+}
 ```
