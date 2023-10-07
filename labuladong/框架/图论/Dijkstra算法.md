@@ -72,3 +72,50 @@ public:
     }
 };
 ```
+---
+```c++
+class Path{
+public:
+    int end_id;
+    int dist; // start to cur
+    Path(int a, int b) : end_id(a), dist(b) { }
+};
+
+int main(){
+    int n, m;
+    cin >> n >> m;
+    vector<vector<pair<int,int>>> graph(n+1);
+    for (int i = 0; i < m; ++i) {
+        int from, to, weight;
+        scanf("%d %d %d", &from, &to, &weight);
+        graph[from].push_back(pair<int,int>(to, weight));
+    }
+
+    vector<int> dist(n+1, INT_MAX); // start到i的当前最短距离
+
+    dist[1] = 0;
+
+    queue<Path> q;
+    q.push(Path(1, 0));
+    while (!q.empty()){
+        Path cur = q.front();
+        q.pop();
+
+        if (cur.dist > dist[cur.end_id]) continue;// 小于或等于都继续
+
+        for (pair<int,int> edge : graph[cur.end_id]) {
+            int to = edge.first;
+            int weight = edge.second;
+            if (cur.dist + weight < dist[to]){
+                dist[to] = cur.dist + weight;
+                q.push(Path(to, cur.dist + weight));
+            }
+        }
+
+    }
+
+    printf("%d\n", dist[n] == INT_MAX ? -1 : dist[n]);
+    
+    return 0;
+}
+```
