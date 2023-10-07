@@ -1,5 +1,71 @@
 Prim算法
+```c++
+class Edge{
+public:
+    int from;
+    int to;
+    int weight;
+    Edge(int a, int b, int c) : from(a), to(b), weight(c) { }
+};
+class cmp{
+public:
+    bool operator () (const Edge &lhs, const Edge &rhs) const{
+        if (lhs.weight > rhs.weight)
+            return true;
+        else
+            return false;
+    }
+};
+int main(){
+    int n, m;
+    cin >> n >> m;
+    vector<vector<Edge>> graph(n+1);
+    for (int i = 0; i < m; ++i) {
+        int u, v, w;
+        scanf("%d %d %d", &u, &v, &w);
+        if (u == v) continue;
+        graph[u].push_back(Edge(u, v, w));// 无向边
+        graph[v].push_back(Edge(v, u, w));// 无向边
+    }
 
+    int ans = 0;
+    set<int> visited;
+    priority_queue<Edge, vector<Edge>, cmp> pq;
+    for (int i = 1; i < graph.size(); ++i) {
+        if (graph[i].size() > 0){
+            for (int j = 0; j < graph[i].size(); ++j) {
+                if (visited.count(graph[i][j].to)) continue;
+                pq.push(Edge(graph[i][j].from, graph[i][j].to, graph[i][j].weight));
+            }
+            visited.insert(i);
+            break;
+        }
+    }
+
+    while (!pq.empty()){
+        Edge cur = pq.top();
+        pq.pop();
+
+        if (visited.count(cur.to)) continue;// 必须判断，该边加入时to还没有被访问，不代表现在取出时to仍然没有被访问
+
+        visited.insert(cur.to);
+        ans += cur.weight;
+
+        for (Edge edge : graph[cur.to]) {
+            if (visited.count(edge.to)) continue;
+            pq.push(edge);
+        }
+    }
+
+    if (visited.size() == n)
+        printf("%d\n", ans);
+    else
+        printf("impossible\n");
+
+    return 0;
+}
+```
+---
 ```c++
 #include <iostream>
 #include <cstdio>
