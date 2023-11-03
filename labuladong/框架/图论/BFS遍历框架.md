@@ -22,7 +22,7 @@ int BFS(Node start, Node target) {
             for (Node x : cur.adj()) {
                 if (visited.count(x) == 0) {
                     q.push(x);
-                    visited.insert(x);// 访问标记应该在进队时标记
+                    visited.insert(x);// 访问标记应该在进队时标记 访问标记应该在进队时标记 访问标记应该在进队时标记
                 }
             }
         }
