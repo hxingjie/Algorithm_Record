@@ -3,6 +3,7 @@
 // 常用函数
 stod:string to double
 reverse(container.begin(), container.end());
+string.resize(string.size() + cnt);
 
 // 字符流的使用
 stringstream ss(str);
