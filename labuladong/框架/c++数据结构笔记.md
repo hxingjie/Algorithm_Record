@@ -709,7 +709,7 @@ int reverse(int n){
 }
 ```
 
-### 7.指针和引用
+#### 7.指针和引用
 
 ```c++
 void swap(int * x, int * y){
