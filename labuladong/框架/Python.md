@@ -21,7 +21,7 @@ q.appendleft(item)
 item = q.pop()
 item = q.popleft()
 
-my_dict: list[list[int]] = list()
+my_list: list[list[int]] = list()
 my_dict: dict[str, int] = dict()
 
 my_queue: deque = deque()
