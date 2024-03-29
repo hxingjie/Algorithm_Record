@@ -8,10 +8,17 @@ chr(97)  # ASCII转字符串
 l = len(*)
 llist.reverse()
 
+n //= 2  # 整数除法
 math.ceil(float)  # 向上取整
 math.floor(float)  # 向下取整
 math.int(float)  # 向0取整
 math.round(float)  # 四舍五入
+```
+
+### 位运算
+···python
+& | >> <<
+n & (n-1)  # 消去n最右边的1
 ```
 
 ```python
