@@ -17,7 +17,7 @@ math.round(float)  # 四舍五入
 ```
 
 ### 位运算
-···python
+```python
 & | >> <<
 n & (n-1)  # 消去n最右边的1
 
@@ -25,6 +25,7 @@ n & (n-1)  # 消去n最右边的1
 
 ### 数据结构
 ```python
+
 q = deque()
 q.append(item)
 q.appendleft(item)
