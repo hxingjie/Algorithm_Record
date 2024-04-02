@@ -6,7 +6,8 @@ chr(97)  # ASCII转字符串
 "".join(word_l)  # 列表转字符串
 
 l = len(*)
-llist.reverse()
+l_list.reverse()
+l_list.sort()
 
 n //= 2  # 整数除法
 math.ceil(float)  # 向上取整
