@@ -41,4 +41,22 @@ my_stack: deque= deque()
 
 my_set: set = set()
 
+class Solution:
+    class Elem:
+        def __init__(self, val: int):
+            self.val = val
+        def __lt__(self, other):
+            return self.val > other.val
+
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        sup_heapq: heapq = []
+        for num in nums:
+            heapq.heappush(sup_heapq, self.Elem(num))
+        
+        ans: int = 0
+        for i in range(k):
+            ans = heapq.heappop(sup_heapq).val
+        
+        return ans
+
 ```
