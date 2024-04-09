@@ -59,4 +59,16 @@ class Solution:
         
         return ans
 
+from functools import cmp_to_key
+def my_cmp(l: int, r: int):
+    if l < r:
+        return -1
+    elif l == r:
+        return 0
+    elif l > r:
+        return 1
+
+l = [2, 1, 3]
+l_sorted = sorted(l, key=cmp_to_key(my_cmp))
+l.sort(key=cmp_to_key(my_cmp))
 ```
