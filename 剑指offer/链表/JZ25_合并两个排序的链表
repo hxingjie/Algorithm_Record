@@ -1,0 +1,28 @@
+# JZ25 合并两个排序的链表
+```c++
+class Solution {
+public:
+    ListNode* Merge(ListNode* pHead1, ListNode* pHead2) {
+        ListNode* p1 = pHead1;
+        ListNode* p2 = pHead2;
+
+        ListNode* ans = new ListNode(-1);
+        ListNode* p = ans;
+        while (p1 != nullptr && p2 != nullptr) {
+            ListNode* new_node = new ListNode(-1);
+            if (p1->val < p2->val) {
+                new_node->val = p1->val;
+                p1 = p1->next;
+            } else {
+                new_node->val = p2->val;
+                p2 = p2->next;
+            }
+            p->next = new_node;
+            p = p->next;
+        }
+        p->next = p1 != nullptr ? p1 : p2;
+
+        return ans->next;
+    }
+};
+```
