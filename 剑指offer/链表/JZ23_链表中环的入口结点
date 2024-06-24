@@ -1,0 +1,27 @@
+# JZ23 链表中环的入口结点
+```c++
+class Solution {
+public:
+    ListNode* EntryNodeOfLoop(ListNode* pHead) {
+        ListNode* tmp = new ListNode(-1);
+        tmp->next = pHead;
+
+        ListNode* slow = tmp;
+        ListNode* fast = tmp;
+
+        while (fast != nullptr && fast->next != nullptr) {
+            fast = fast->next->next; // 快指针一次走两步
+            slow = slow->next; // 慢指针一次走一步
+            if (slow == fast) { // 发现环
+                slow = tmp;
+                while (slow != fast) {
+                    slow = slow->next;
+                    fast = fast->next;
+                }
+                return slow;
+            }
+        }
+        return nullptr;
+    }
+};
+```
