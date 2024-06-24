@@ -1,0 +1,49 @@
+# JZ21_调整数组顺序使奇数位于偶数前面(一)
+## 左右指针，时间 O(n), 空间 O(n)
+```c++
+class Solution {
+public:
+    vector<int> reOrderArray(vector<int>& array) {
+        vector<int> ans(array.size());
+        int idx_l = 0, idx_r = array.size()-1;
+        int l = idx_l, r = idx_r;
+
+        while (l < array.size()) {
+            if (array[l]%2 != 0) {
+                ans[idx_l] = array[l];
+                idx_l += 1;
+            }
+            if (array[r]%2 == 0) {
+                ans[idx_r] = array[r];
+                idx_r -= 1;
+            }
+            l += 1;
+            r -= 1;
+        }
+        return ans;
+    }
+};
+```
+
+## 快慢指针，时间 O(n^2), 空间 O(1)
+```c++
+class Solution {
+public:
+    vector<int> reOrderArray(vector<int>& array) {
+        int slow = 0, fast = 0;
+        while (fast < array.size()) {
+            if (array[fast]%2 != 0) {
+                // slow...fast-1 -> slow+1...fast
+                int tmp = array[fast];
+                for (int i = fast-1; i >= slow; i--) {
+                    array[i+1] = array[i];
+                }
+                array[slow] = tmp;
+                slow += 1;
+            }
+            fast += 1;
+        }
+        return array;
+    }
+};
+```
