@@ -1,0 +1,45 @@
+# JZ24 反转链表
+## 递归
+```c++
+class Solution {
+public:
+    ListNode* ReverseList(ListNode* head) {
+        if (head == nullptr || head->next == nullptr)
+            return head;
+
+        ListNode* new_head = ReverseList(head->next); // 需要保证 head != nullptr
+        ListNode* p = new_head;
+        while (p->next != nullptr) // 需要保证 p != nullptr
+            p = p->next;
+            
+        p->next = head;
+        head->next = nullptr;
+
+        return new_head;
+    }
+};
+```
+## 迭代
+```c++
+class Solution {
+public:
+    ListNode* ReverseList(ListNode* head) {
+        if (head == nullptr)
+            return head;
+        
+        ListNode* lastNode = head;
+        ListNode* curNode = head->next;
+        head->next = nullptr;
+
+        while (curNode != nullptr) {
+            ListNode* nextNode = curNode->next;
+            curNode->next = lastNode;
+
+            lastNode = curNode;
+            curNode = nextNode;
+        }
+        
+        return lastNode;
+    }
+};
+```
