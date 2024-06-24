@@ -1,0 +1,17 @@
+# JZ27 二叉树的镜像
+```c++
+class Solution {
+public:
+    TreeNode* Mirror(TreeNode* pRoot) {
+        if (pRoot == nullptr)
+            return nullptr;
+        
+        TreeNode* tmp = pRoot->left;
+        pRoot->left = pRoot->right;
+        pRoot->right = tmp;
+        pRoot->left = Mirror(pRoot->left);
+        pRoot->right = Mirror(pRoot->right);
+        return pRoot;
+    }
+};
+```
