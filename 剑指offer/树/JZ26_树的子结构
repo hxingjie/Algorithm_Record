@@ -1,0 +1,28 @@
+# JZ26 树的子结构
+```c++
+class Solution {
+public:
+	bool isSameTree(TreeNode* root1, TreeNode* root2) {
+		if (root2 == nullptr) {
+			return true;
+		}
+		if (root1 == nullptr || root1->val != root2->val) {
+			return false;
+		}
+		return isSameTree(root1->left, root2->left) && isSameTree(root1->right, root2->right);
+	}
+
+    bool HasSubtree(TreeNode* pRoot1, TreeNode* pRoot2) {
+		if (pRoot1 == nullptr || pRoot2 == nullptr) {
+			return false;
+		}
+		if (isSameTree(pRoot1, pRoot2)) {
+			return true;
+		}
+		bool l = HasSubtree(pRoot1->left, pRoot2);
+		bool r = HasSubtree(pRoot1->right, pRoot2);
+		return l || r;
+    }
+};
+
+```
