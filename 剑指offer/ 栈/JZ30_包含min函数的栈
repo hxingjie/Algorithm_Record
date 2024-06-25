@@ -1,0 +1,28 @@
+# JZ30 包含min函数的栈
+```c++
+class Solution {
+public:
+    stack<int> sup;
+    stack<int> minVal;
+    void push(int value) {
+        // push 1, push 1, pop 1
+        // 等于也要放进 minVal，否则上面的例子中，minVal为空
+        if (sup.empty() || value <= minVal.top())
+            minVal.push(value);
+
+        sup.push(value);
+    }
+    void pop() {
+        if (sup.top() == minVal.top()) {
+            minVal.pop();
+        }
+        sup.pop();
+    }
+    int top() {
+        return sup.top();
+    }
+    int min() {
+        return minVal.top();
+    }
+};
+```
