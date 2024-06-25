@@ -1,0 +1,41 @@
+# JZ33 二叉搜索树的后序遍历序列
+```c++
+class Solution {
+public:
+    bool isBST(vector<int> sequence) {
+        int n = sequence.size();
+        if (n == 0)
+            return true;
+         
+        vector<int> left_tree;
+        vector<int> right_tree;
+
+        int idx = 0;
+        while (idx < n-1) {
+            if (sequence[idx] < sequence[n-1]) {
+                left_tree.push_back(sequence[idx]);
+                idx += 1;
+            } else {
+                break;
+            } 
+        }
+        while (idx < n-1) {
+            if (sequence[idx] > sequence[n-1]) {
+                right_tree.push_back(sequence[idx]);
+                idx += 1;
+            } else {
+                return false;
+            }
+        }
+
+        return isBST(left_tree) && isBST(right_tree);
+    }
+
+    bool VerifySquenceOfBST(vector<int> sequence) {
+        int n = sequence.size();
+        if (n == 0)
+            return false;
+        return isBST(sequence);
+    }
+};
+```
