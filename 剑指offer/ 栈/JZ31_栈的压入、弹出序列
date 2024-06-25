@@ -1,0 +1,30 @@
+# JZ31 栈的压入、弹出序列
+```c++
+class Solution {
+public:
+    bool IsPopOrder(vector<int>& pushV, vector<int>& popV) {
+        stack<int> sup;
+
+        int idx_push = 0;
+        int idx_pop = 0;
+        while (idx_push < pushV.size()) {
+            if (sup.empty()) {
+                sup.push(pushV[idx_push]);
+                idx_push += 1;
+            } else {
+                while (!sup.empty() && sup.top() == popV[idx_pop]) {
+                    sup.pop();
+                    idx_pop += 1;
+                }
+                sup.push(pushV[idx_push]);
+                idx_push += 1;
+            }
+        }
+        while (!sup.empty() && sup.top() == popV[idx_pop]) {
+            sup.pop();
+            idx_pop += 1;
+        }
+        return idx_pop == popV.size();
+    }
+};
+```
