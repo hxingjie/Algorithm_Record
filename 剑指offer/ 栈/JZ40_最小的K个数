@@ -1,0 +1,29 @@
+# JZ40 最小的K个数
+```c++
+#include <queue>
+class Solution {
+public:
+    class MyCmp {
+    public:
+        bool operator () (const int &lhs, const int &rhs) {
+            if (lhs < rhs)
+                return false;
+            else
+                return true;
+        }
+    };
+    vector<int> GetLeastNumbers_Solution(vector<int>& input, int k) {
+        priority_queue<int, vector<int>, MyCmp> pq;
+        for (int i = 0; i < input.size(); i++) {
+            pq.push(input[i]);
+        }
+
+        vector<int> ans(k);
+        for (int i = 0; i < k; i++) {
+            ans[i] = pq.top();
+            pq.pop();
+        }
+        return ans;
+    }
+};
+```
