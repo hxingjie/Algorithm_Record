@@ -1,0 +1,74 @@
+# JZ37 序列化二叉树
+```c#
+using System.Text;
+using System.Collections.Generic;
+class Solution
+{
+    public string Serialize(TreeNode root)
+    {
+        StringBuilder sb = new StringBuilder();
+        if (root == null) {
+            return sb.ToString();
+        }
+        Queue<TreeNode> q = new Queue<TreeNode>();
+        q.Enqueue(root);
+
+        while (q.Count > 0) {
+            int sz = q.Count;
+            for (int i = 0; i < sz; i++) {
+                TreeNode cur = q.Dequeue();
+                if (cur == null) {
+                    sb.Append('#');
+                    continue;
+                } else {
+                    sb.Append((char)(cur.val+'0'));
+                }
+                
+                if (cur.left != null)
+                    q.Enqueue(cur.left);
+                else
+                    q.Enqueue(null);
+
+                if (cur.right != null)
+                    q.Enqueue(cur.right);
+                else
+                    q.Enqueue(null);
+            }
+        }
+        while (sb[sb.Length-1] == '#')
+            sb.Remove(sb.Length-1, 1);
+        return sb.ToString();
+    }
+    public TreeNode Deserialize(string str)
+    {
+        if (str == "")
+            return null;
+        
+        int idx = 0;
+        TreeNode root = new TreeNode((int)(str[idx]-'0'));
+        idx += 1;
+
+        Queue<TreeNode> q = new Queue<TreeNode>();
+        q.Enqueue(root);
+
+        TreeNode p = q.Dequeue();
+        bool isLeft = true;
+        while (idx < str.Length) {
+            TreeNode node = null;
+            if (str[idx] != '#') {
+                node = new TreeNode((int)(str[idx]-'0'));
+                q.Enqueue(node);
+            }
+                
+            if (isLeft) p.left = node;
+            else {
+                p.right = node;
+                p = q.Dequeue();
+            }
+            isLeft = !isLeft;
+            idx += 1;
+        }
+        return root;
+    }
+}
+```
