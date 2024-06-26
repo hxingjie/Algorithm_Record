@@ -1,0 +1,34 @@
+# JZ38 字符串的排列
+```c++
+#include <vector>
+class Solution {
+public:
+    string track = "";
+    vector<string> ans;
+    unordered_set<int> sup_set;
+    void traverse(string str) {
+        if (track.size() == str.size()) {
+            ans.push_back(track);
+            return;
+        }
+
+        unordered_set<char> hasUsed;
+        for (int i = 0; i < str.size(); i++) {
+            if (sup_set.count(i)) continue; // 不能重复使用相同位置的字母
+
+            if (hasUsed.count(str[i])) continue; // 该分支不能重复使用相同字母
+            hasUsed.insert(str[i]);
+
+            sup_set.insert(i);
+            track.push_back(str[i]);
+            traverse(str);
+            sup_set.erase(i);
+            track.pop_back();
+        }
+    }
+    vector<string> Permutation(string str) {
+        traverse(str);
+        return ans;
+    }
+};
+```
