@@ -1,0 +1,52 @@
+# JZ41 数据流中的中位数
+```c++
+#include <queue>
+class Solution {
+public:
+    class For_MaxPQ {
+    public:
+        bool operator() (const int &lhs, const int &rhs) {
+            if (lhs < rhs) return true;
+            else return false;
+        }
+    };
+    class For_MinPQ {
+    public:
+        bool operator() (const int &lhs, const int &rhs) {
+            if (lhs > rhs) return true;
+            else return false;
+        }
+    };
+    priority_queue<int, vector<int>, For_MaxPQ> pq_max; // top is max, save smaller
+    priority_queue<int, vector<int>, For_MinPQ> pq_min; // top is min, save bigger
+    void Insert(int num) {
+        if (pq_max.size() == 0 && pq_min.size() == 0) {
+            pq_max.push(num);
+        } else {
+            if (num < pq_max.top()) // 必须放进存放较小数的堆
+                pq_max.push(num);
+            else if (pq_min.empty() || num > pq_min.top()) // 必须放进存放较大数的堆
+                pq_min.push(num);
+            else // 两边都可以放
+                pq_max.push(num);
+
+            // 调整两边的数量，pq_max.size() == pq_min.size() or pq_max.size() == pq_min.size()+1
+            if (pq_max.size() > pq_min.size()+1) {
+                pq_min.push(pq_max.top());
+                pq_max.pop();
+            } else if (pq_max.size() < pq_min.size()) {
+                pq_max.push(pq_min.top());
+                pq_min.pop();
+            }
+        }
+    }
+
+    double GetMedian() { 
+        if (pq_max.size() == pq_min.size()) {
+            return (pq_max.top() + pq_min.top()) / (double)2;
+        } else {
+            return pq_max.top();
+        }
+    }
+};
+```
