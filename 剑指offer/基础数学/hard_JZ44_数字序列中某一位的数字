@@ -1,0 +1,22 @@
+# JZ44 数字序列中某一位的数字
+```c++
+#include <string>
+class Solution {
+public:
+    int findNthDigit(int n) {
+        if (n < 10)
+            return n;
+            
+        n -= 10;
+        int digit = 2;
+        long long base = 10; // 9*base*digit 会超出 int
+        while (n > 9*base*digit) {
+            n -= 9*base*digit;
+            digit += 1;
+            base *= 10;
+        }
+        int num = base + n/digit;
+        return to_string(num)[n%digit]-'0';
+    }
+};
+```
