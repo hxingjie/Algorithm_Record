@@ -1,0 +1,24 @@
+# JZ46 把数字翻译成字符串
+```c++
+#include <vector>
+class Solution {
+public:
+    int solve(string nums) {
+        // dp[i] = dp[i-1] + dp[i-2]
+        int n = nums.size();
+        if (n == 1)
+            return nums == "0" ? 0 : 1;
+            
+        vector<int> dp(n+1, 0); // dp[i]: nums的前i个字符有多少种表示方式
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i < n+1; i++) { // 遍历dp数组
+            if (nums[i-1] != '0') 
+                dp[i] += dp[i-1];
+            if (nums.substr(i-2, 2) >= "10" && nums.substr(i-2, 2) <= "26")
+                dp[i] += dp[i-2];
+        }
+        return dp[n];
+    }
+};
+```
