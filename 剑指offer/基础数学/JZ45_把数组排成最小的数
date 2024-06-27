@@ -1,0 +1,21 @@
+# JZ45 把数组排成最小的数
+```c++
+#include <string>
+class Solution {
+public:
+    static bool cmp(const int &lhs, const int &rhs) {
+        if (to_string(lhs) + to_string(rhs) < to_string(rhs) + to_string(lhs))
+            return true;
+        else
+            return false;
+    }
+    string PrintMinNumber(vector<int>& numbers) {
+        sort(numbers.begin(), numbers.end(), cmp);
+        string ans = "";
+        for (int i = 0; i < numbers.size(); i++) {
+            ans += to_string(numbers[i]);
+        }
+        return ans;
+    }
+};
+```
