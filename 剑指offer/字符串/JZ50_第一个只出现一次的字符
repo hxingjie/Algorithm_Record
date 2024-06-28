@@ -1,0 +1,22 @@
+# JZ50 第一个只出现一次的字符
+```c++
+class Solution {
+public:
+    int FirstNotRepeatingChar(string str) {
+        unordered_map<char, int> mm; // 记录字符出现的位置，如果重复出现，位置置为-1
+        queue<char> q;
+        for (int i = 0; i < str.size(); i++) {
+            if (mm.count(str[i]) == 0) { // 第一次出现
+                q.push(str[i]); // 入队
+                mm[str[i]] = i; // 键值对记录字符和位置
+            } else { // 重复出现
+                mm[str[i]] = -1; // 位置置为-1
+                while (! q.empty() && mm[q.front()] == -1) { // 队头元素的位置被置为-1的都要出队
+                    q.pop();
+                }
+            }
+        }
+        return q.empty() ? -1 : mm[q.front()]; // 队头元素即为答案
+    }
+};
+```
