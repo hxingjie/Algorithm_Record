@@ -14,8 +14,8 @@ public:
         dp[1] = 1;
         for (int i = 2; i < n+1; i++) { // 遍历dp数组
             if (nums[i-1] != '0') 
-                dp[i] += dp[i-1];
-            if (nums.substr(i-2, 2) >= "10" && nums.substr(i-2, 2) <= "26")
+                dp[i] += dp[i-1]; // 可以单独表示一个字符
+            if (nums.substr(i-2, 2) >= "10" && nums.substr(i-2, 2) <= "26") // 可以组合表示一个字符
                 dp[i] += dp[i-2];
         }
         return dp[n];
