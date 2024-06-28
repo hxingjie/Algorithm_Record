@@ -1,0 +1,27 @@
+# JZ48 最长不含重复字符的子字符串
+```c++
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_set<char> window;
+        int l = 0, r = 0; // [l, r)
+        int ans = 0;
+        while (r < s.size()) {
+            char c1 = s[r];
+            r += 1;
+            if (window.count(c1) > 0) { // 如果遇到重复字符
+                ans = max(ans, r-l-1); // 先更新答案
+                while (window.count(c1) > 0) { // 直到弹出前面的重复字符
+                    char c2 = s[l];
+                    l += 1;
+                    window.erase(c2);
+                }
+            }
+            window.insert(c1); // 压入
+        }
+        // 因为循环中只有遇到重复元素才会尝试更新最大值，如果最后一段没有重复元素，不会触发更新
+        ans = max(ans, r-l);
+        return ans;
+    }
+};
+```
