@@ -1,0 +1,14 @@
+# JZ55 二叉树的深度
+```c++
+class Solution {
+public:
+    int TreeDepth(TreeNode* pRoot) {
+		if (pRoot == nullptr)
+			return 0;
+			
+		int l = TreeDepth(pRoot->left);
+		int r = TreeDepth(pRoot->right);
+		return max(l, r) + 1;
+    }
+};
+```
