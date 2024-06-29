@@ -1,0 +1,28 @@
+# JZ52 两个链表的第一个公共结点
+```c++
+class Solution {
+public:
+    ListNode* FindFirstCommonNode( ListNode* pHead1, ListNode* pHead2) {
+		ListNode* p1 = pHead1;
+		ListNode* p2 = pHead2;
+
+		if (p1 == nullptr || p2 == nullptr)
+			return nullptr;
+        
+		while (true) {
+			if (p1 != nullptr && p1 == p2) // 找到公共结点
+				return p1;
+
+			p1 = p1->next;
+			p2 = p2->next;
+			if (p1 == nullptr && p2 == nullptr) // 同时为空，没有公共结点
+				break;
+
+			if (p1 == nullptr) p1 = pHead2;
+			if (p2 == nullptr) p2 = pHead1;
+		}
+		return nullptr;
+    }
+};
+
+```
