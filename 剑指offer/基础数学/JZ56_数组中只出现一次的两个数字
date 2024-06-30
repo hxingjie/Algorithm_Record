@@ -1,0 +1,22 @@
+# JZ56 数组中只出现一次的两个数字
+```c++
+#include <vector>
+class Solution {
+public:
+    vector<int> FindNumsAppearOnce(vector<int>& nums) {
+        vector<int> ans;
+        unordered_map<int, int> mm;
+        for (int i = 0; i < nums.size(); i++)
+            mm[nums[i]] += 1;
+            
+        for (int num: nums) 
+            if (mm[num] == 1)
+                ans.push_back(num);
+
+        if (ans[0] > ans[1])
+            swap(ans[0], ans[1]);
+            
+        return ans;
+    }
+};
+```
