@@ -4,6 +4,31 @@
 class Solution {
 public:
     vector<int> FindNumsAppearOnce(vector<int>& nums) {
+        int tmp = 0;
+        for (int num : nums) tmp ^= num;
+        
+        int k = 1;
+        while ((tmp & k) == 0) k <<= 1;
+
+        int a = 0, b = 0;
+        for (int num : nums) {
+            if ((num&k) == 0) a ^= num;
+            else b ^= num;
+        }
+        vector<int> ans(2);
+        ans[0] = a;
+        ans[1] = b;
+        if (ans[0] > ans[1]) swap(ans[0], ans[1]);
+
+        return ans;
+    }
+};
+```
+```c++
+#include <vector>
+class Solution {
+public:
+    vector<int> FindNumsAppearOnce(vector<int>& nums) {
         vector<int> ans;
         unordered_map<int, int> mm;
         for (int i = 0; i < nums.size(); i++)
