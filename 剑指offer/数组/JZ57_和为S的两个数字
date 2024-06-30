@@ -1,0 +1,23 @@
+# JZ57 和为S的两个数字
+```c++
+class Solution {
+public:
+    vector<int> FindNumbersWithSum(vector<int> array,int sum) {
+        vector<int> ans;
+        int n = array.size();
+        int l = 0, r = n-1;
+        while (l < r) {
+            if (array[l] + array[r] == sum) {
+                ans.push_back(array[l]);
+                ans.push_back(array[r]);
+                break;
+            } else if (array[l] + array[r] > sum) {
+                r -= 1;
+            } else if (array[l] + array[r] < sum) {
+                l += 1;
+            }
+        }
+        return ans;
+    }
+};
+```
