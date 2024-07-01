@@ -1,0 +1,25 @@
+# JZ61 扑克牌顺子
+```c++
+class Solution {
+public:
+    bool IsContinuous(vector<int>& numbers) {
+        sort(numbers.begin(), numbers.end());
+        int last = -1, cnt_0 = 0, lost = 0;
+        for (int i = 0; i < numbers.size(); i++) {
+            if (numbers[i] == 0) {
+                cnt_0 += 1;
+                continue;
+            }
+            if (last == -1) {
+                last = numbers[i];
+            } else {
+                if (numbers[i] == last)
+                    return false;
+                lost += numbers[i] - (last+1);
+                last = numbers[i];
+            }
+        }
+        return lost <= cnt_0 ? true : false;
+    }
+};
+```
