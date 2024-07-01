@@ -1,0 +1,28 @@
+# JZ59 滑动窗口的最大值
+```c++
+class Solution {
+public:
+    vector<int> maxInWindows(vector<int>& num, int size) {
+        // 单调队列
+        vector<int> ans;
+        if (size > num.size() || size == 0)
+            return ans;
+        
+        deque<int> dq;
+        for (int i = 0; i < num.size(); i++) {
+            while (! dq.empty() && num[i] > dq.back()) {
+                dq.pop_back();
+            }
+            dq.push_back(num[i]);
+            if (i < size-1) { // i should >= (size-1)
+                continue;
+            }
+            ans.push_back(dq.front());
+            if (dq.front() == num[i-size+1]) {
+                dq.pop_front();
+            }
+        }
+        return ans;
+    }
+};
+```
