@@ -1,0 +1,25 @@
+# JZ86 在二叉树中找到两个节点的最近公共祖先
+```c++
+class Solution {
+public:
+    TreeNode* findNode(TreeNode* root, int p, int q) {
+        if (root == nullptr)
+            return nullptr;
+        if (root->val == p || root->val == q)
+            return root;
+        
+        TreeNode* l = findNode(root->left, p, q);
+        TreeNode* r = findNode(root->right, p, q);
+        if (l != nullptr && r != nullptr ) {
+            return root;
+        } else if (l == nullptr) {
+            return r;
+        } else {
+            return l;
+        }
+    }
+    int lowestCommonAncestor(TreeNode* root, int p, int q) {
+        return findNode(root, p, q)->val;
+    }
+};
+```
