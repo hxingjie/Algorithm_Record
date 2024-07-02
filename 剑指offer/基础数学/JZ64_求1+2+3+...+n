@@ -1,0 +1,10 @@
+# JZ64 求1+2+3+...+n
+```c++
+class Solution {
+public:
+    int Sum_Solution(int n) {
+        n && (n += Sum_Solution(n-1));
+        return n;
+    }
+};
+```
