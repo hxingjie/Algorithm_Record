@@ -1,0 +1,21 @@
+# JZ69 跳台阶
+```c++
+class Solution {
+public:
+    int jumpFloor(int number) {
+        // dp[i] = dp[i-1] + dp[i-2]
+        if (number == 1 || number == 2)
+            return number;
+            
+        int dp_2 = 1;
+        int dp_1 = 2;
+        int ans = 0;
+        for (int i = 3; i <= number; i++) {
+            ans = dp_2 + dp_1;
+            dp_2 = dp_1;
+            dp_1 = ans;
+        }
+        return ans;
+    }
+};
+```
