@@ -1,0 +1,20 @@
+# JZ62 孩子们的游戏(圆圈中最后剩下的数)
+```c++
+class Solution {
+public:
+    int LastRemaining_Solution(int n, int m) {
+        queue<int> q;
+        for (int i = 0; i < n; i++)
+            q.push(i);
+        int flag = -1;
+        while (q.size() > 1) {
+            int tmp = q.front();
+            q.pop();
+            flag += 1;
+            if (flag != m-1) q.push(tmp);
+            else flag = -1; // 重置
+        }
+        return q.front();
+    }
+};
+```
