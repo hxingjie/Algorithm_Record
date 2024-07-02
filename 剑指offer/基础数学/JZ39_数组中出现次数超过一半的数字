@@ -3,6 +3,7 @@
 class Solution {
 public:
     int MoreThanHalfNum_Solution(vector<int>& numbers) {
+        // 使用计数器记录当前可能为答案的数
         int cnt = 0;
         int num = -1;
         for (int i = 0; i < numbers.size(); i++) {
