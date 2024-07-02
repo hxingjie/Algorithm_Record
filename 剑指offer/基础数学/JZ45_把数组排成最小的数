@@ -3,7 +3,7 @@
 #include <string>
 class Solution {
 public:
-    static bool cmp(const int &lhs, const int &rhs) {
+    static bool cmp(const int &lhs, const int &rhs) { // 写排序规则
         if (to_string(lhs) + to_string(rhs) < to_string(rhs) + to_string(lhs))
             return true;
         else
