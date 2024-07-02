@@ -1,0 +1,20 @@
+# JZ68 二叉搜索树的最近公共祖先
+```c++
+class Solution {
+public:
+    int lowestCommonAncestor(TreeNode* root, int p, int q) {
+        if (root == nullptr)
+            return -1;
+        if (root->val == p || root->val == q) {
+            return root->val;
+        }
+        if (root->val > p && root->val < q) {
+            return root->val;
+        }
+        int l = lowestCommonAncestor(root->left, p, q);
+        int r = lowestCommonAncestor(root->right, p, q);
+
+        return l != -1 ? l : r;
+    }
+};
+```
