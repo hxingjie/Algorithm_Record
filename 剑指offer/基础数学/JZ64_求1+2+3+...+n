@@ -3,6 +3,7 @@
 class Solution {
 public:
     int Sum_Solution(int n) {
+        // 短路，递归分解
         n && (n += Sum_Solution(n-1));
         return n;
     }
