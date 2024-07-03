@@ -1,0 +1,27 @@
+# JZ79 判断是不是平衡二叉树
+```c++
+#include <unordered_map>
+class Solution {
+public:
+    unordered_map<TreeNode*, int> mm_height;
+    int getHeight(TreeNode* root) {
+        if (root == nullptr)
+            return 0;
+
+        if (mm_height.count(root) == 0)
+            mm_height[root] = max(getHeight(root->left), getHeight(root->right)) + 1;
+
+        return mm_height[root];
+    }
+    bool IsBalanced_Solution(TreeNode* pRoot) {
+        if (pRoot == nullptr) return true;
+
+        int l = getHeight(pRoot->left);
+        int r = getHeight(pRoot->right);
+        if (abs(l-r) <= 1) {
+            return IsBalanced_Solution(pRoot->left) && IsBalanced_Solution(pRoot->right);
+        }
+        return false;
+    }
+};
+```
