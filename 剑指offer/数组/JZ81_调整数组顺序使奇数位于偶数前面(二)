@@ -1,0 +1,17 @@
+# JZ81 调整数组顺序使奇数位于偶数前面(二)
+```c++
+class Solution {
+public:
+    vector<int> reOrderArrayTwo(vector<int>& array) {
+        int slow = 0, fast = 0;
+        while (fast < array.size()) {
+            if (array[fast]%2 != 0) {
+                swap(array[slow], array[fast]);
+                slow += 1;
+            }
+            fast += 1;
+        }
+        return array;
+    }
+};
+```
