@@ -1,0 +1,30 @@
+# JZ76 删除链表中重复的结点
+```c++
+#include <unordered_set>
+class Solution {
+public:
+    ListNode* deleteDuplication(ListNode* pHead) {
+        ListNode* head = new ListNode(-1);
+        head->next = pHead;
+        unordered_set<int> mm;
+        unordered_set<int> replaceNode;
+        ListNode* p = head;
+        while (p != nullptr) {
+            if (mm.count(p->val) > 0)
+                replaceNode.insert(p->val);
+            else
+                mm.insert(p->val);
+            p = p->next;
+        }
+        p = head;
+        while (p != nullptr && p->next != nullptr) {
+            if (replaceNode.count(p->next->val))
+                p->next = p->next->next;
+            else
+                p = p->next;
+        }
+
+        return head->next;
+    }
+};
+```
