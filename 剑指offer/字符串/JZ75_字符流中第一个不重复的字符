@@ -1,0 +1,29 @@
+# JZ75 字符流中第一个不重复的字符
+```c++
+class Solution {
+public:
+    unordered_map<char, int> mm;
+    queue<char> q;
+    //Insert one char from stringstream
+    void Insert(char ch) {
+        if (mm.count(ch) > 0) {
+            mm[ch] += 1;
+            while (! q.empty() && mm[q.front()] > 1) {
+                q.pop();
+            }
+        } else {
+            mm[ch] = 1;
+            q.push(ch);
+        }
+    }
+    //return the first appearence once char in current stringstream
+    char FirstAppearingOnce() {
+        if (q.empty())
+            return '#';
+        else
+            return q.front();
+    }
+
+};
+
+```
