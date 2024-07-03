@@ -1,0 +1,40 @@
+# JZ85 连续子数组的最大和(二)
+```c++
+#include <algorithm>
+#include <unordered_map>
+#include <vector>
+class Solution {
+public:
+    vector<int> FindGreatestSumOfSubArray(vector<int>& array) {
+        // dp[i]: 以array[i]结尾的子数组的最大和
+        // dp[i] = max(array[i], dp[i-1]+array[i])
+        vector<int> dp((array.size()));
+        dp[0] = array[0];
+        
+        int maxSum = dp[0]; // 最大和
+        int maxIdx = 0; // dp数组最大值的下标
+        int maxLength = 1; // 最大和的长度
+
+        int start = 0;
+        for (int i = 1; i < array.size(); i++) {
+            if (array[i] > array[i]+dp[i-1]) {
+                dp[i] = array[i];
+                start = i;
+            } else {
+                dp[i] = array[i]+dp[i-1];
+            }
+
+            if (dp[i] > maxSum || (dp[i] == maxSum && i-start+1 > maxLength)) {
+                maxSum = dp[i];
+                maxIdx = i;
+                maxLength = i-start+1;
+            }
+        }
+        vector<int> ans;
+        for (int i = maxIdx-maxLength+1; i <= maxIdx; i++)
+            ans.push_back(array[i]);
+        
+        return ans;
+    }
+};
+```
