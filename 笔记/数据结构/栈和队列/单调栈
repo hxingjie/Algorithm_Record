@@ -1,0 +1,53 @@
+```java
+// // 单调栈：保持栈顶元素是栈里的最小值，从后往前遍历
+int[] nextGreaterElement(int[] nums) {
+    int n = nums.length;
+    // 存放答案的数组
+
+    int[] res = new int[n];
+    Stack<Integer> s = new Stack<>(); 
+   
+    for (int i = n - 1; i >= 0; i--) { // 倒着往栈里放
+
+        // 判定个子高矮
+        while (!s.isEmpty() && s.peek() <= nums[i]) {
+            s.pop();// 矮个起开，反正也被挡着了。。。
+        }
+
+        
+        res[i] = s.isEmpty() ? -1 : s.peek();//  此时s.peek()就是nums[i] 身后的第一个更大元素
+
+        s.push(nums[i]);// 压入栈
+    }
+    return res;
+}
+```
+
+public class Solution {
+    public int[] NextGreaterElement(int[] nums1, int[] nums2) {
+        // 3 4 -1 -1
+        // nums[i],nextGreaterValue
+        Dictionary<int, int> dict = new Dictionary<int, int>();
+            
+        Stack<int> stack = new Stack<int>();
+        for (int i = nums2.Length - 1; i >= 0; i--)
+        {
+            while (stack.Count > 0 && stack.Peek() <= nums2[i])
+                stack.Pop();
+
+            if (stack.Count > 0)
+                dict.Add(nums2[i],stack.Peek());
+            else
+                dict.Add(nums2[i],-1);
+            stack.Push(nums2[i]);
+        }
+
+        int[] ans = new int[nums1.Length];
+        for (int i = 0; i < ans.Length; i++)
+        {
+            ans[i] = dict[nums1[i]];
+        }
+
+        return ans;
+    }
+}
