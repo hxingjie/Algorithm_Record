@@ -1,0 +1,33 @@
+# JZ84 二叉树中和为某一值的路径(三)
+```c++
+#include <unordered_map>
+class Solution {
+public:
+    int ans = 0;
+    int curSum = 0; // sum of path(root -> curNode)
+    unordered_map<int, int> mm;
+    void traverse(TreeNode* root, int sum) {
+        if (root == nullptr) return;
+        
+        curSum += root->val;
+        if (mm.count(curSum-sum) > 0) ans += mm[curSum-sum];
+        
+        if (mm.count(curSum) > 0) mm[curSum] += 1;
+        else mm[curSum] = 1;
+
+        traverse(root->left, sum);
+        traverse(root->right, sum);
+
+        curSum -= root->val;
+        
+    }
+    int FindPath(TreeNode* root, int sum) {
+        if (root == nullptr) return 0;
+
+        mm[0] = 1;
+        traverse(root, sum);
+        
+        return ans;
+    }
+};
+```
