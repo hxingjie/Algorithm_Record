@@ -65,7 +65,7 @@ int main(){
     map<int,int,func> m;
     set<int,func> s;
     priority_queue<int,vector<int>,func> q;
-    sort(nums.begin(),nums.end(),func());
+    sort(nums.begin(),nums.end(),cmp);
 
     return 0;
 }
