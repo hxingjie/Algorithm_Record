@@ -60,6 +60,13 @@ public:
     }
 };
 
+class MyCmp {
+public:
+    bool operator() (ListNode* &lhs, ListNode* &rhs) {
+        return lhs->val > rhs->val;
+    }
+};
+
 int main(){
     // 使用仿函数
     map<int,int,func> m;
