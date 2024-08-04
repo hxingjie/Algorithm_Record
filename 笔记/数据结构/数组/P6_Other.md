@@ -47,6 +47,10 @@ public:
 ## 田忌赛马
 https://leetcode.cn/problems/advantage-shuffle/description/
 ```c++
+// 两个数组从小到大排序
+// 从大的元素开始比起，nums1对应元素大于nums2对应元素，直接 solo
+// 否则，用nums1最小元素当炮灰
+// tips: nums1[i] > nums2[i]时没必要尝试用nums1[i-j]去solo，因为nums1[i]留着也没用
 class Solution {
 public:
     vector<int> advantageCount(vector<int>& nums1, vector<int>& nums2) {
@@ -86,6 +90,9 @@ public:
 ## O(1)时间插入删除获得随即元素
 https://leetcode.cn/problems/insert-delete-getrandom-o1/description/
 ```c++
+// 使用数组存储，实现O(1)插入(push_back)
+// 移除时将待移除的数字和尾部数字交换，实现O(1)移除(pop_back)
+// 为了O(1)找到待移除的数字在数组中的下标，使用map记录元素值和下标的映射
 class RandomizedSet {
 public:
     vector<int> nums;
