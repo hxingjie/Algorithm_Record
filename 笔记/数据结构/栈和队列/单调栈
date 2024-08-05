@@ -51,3 +51,40 @@ public class Solution {
         return ans;
     }
 }
+
+## 去除重复字母
+https://leetcode.cn/problems/remove-duplicate-letters/
+```c++
+class Solution {
+public:
+    string removeDuplicateLetters(string s) {
+        vector<int> charCnt(26, 0); // 记录每个字符的个数
+        for (char c : s) charCnt[c-'a'] += 1;
+
+        vector<bool> inStack(26, false); // 记录栈中是否存在该字符
+        stack<char> supStack;
+
+        for (char c : s) {
+            charCnt[c-'a'] -= 1;
+
+            if (inStack[c-'a']) continue;
+            
+            while (! supStack.empty() && supStack.top() > c && charCnt[supStack.top()-'a'] > 0) {
+                inStack[supStack.top()-'a'] = false;
+                supStack.pop();
+            }
+            inStack[c-'a'] = true;
+            supStack.push(c);
+        }
+        
+        string ans;
+        while (! supStack.empty()) {
+            ans.push_back(supStack.top());
+            supStack.pop();
+        }
+        reverse(ans.begin(), ans.end());
+
+        return ans;
+    }
+};
+```
