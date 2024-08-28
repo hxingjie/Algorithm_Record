@@ -77,6 +77,46 @@ int main(){
     return 0;
 }
 ```
+
+### unordered
+```c++
+#include <iostream>
+#include <unordered_set>
+
+class MyClass {
+public:
+    int val1;
+    int val2;
+    MyClass() : val1(0), val2(0) {}
+    bool operator==(const MyClass& other) const {
+        return val1 == other.val1 && val2 == other.val2;
+    }
+};
+
+class HashForMyClass {
+public:
+    size_t operator()(const MyClass& myclass) const {
+        size_t hashVal1 = std::hash<int>()(myclass.val1);
+        size_t hashVal2 = std::hash<int>()(myclass.val2);
+        return hashVal1 ^ hashVal2;
+    }
+};
+
+int main(int argc, char* argv[]) {
+    std::unordered_set<MyClass, HashForMyClass> t_set;
+    MyClass a;
+    a.val1 = 0;
+    a.val2 = 1;
+    MyClass b;
+    b.val1 = 2;
+    b.val2 = 3;
+    t_set.insert(a);
+    t_set.insert(b);
+    
+    return 0;
+}
+```
+
 ---
 ## 算法与数据结构
 
