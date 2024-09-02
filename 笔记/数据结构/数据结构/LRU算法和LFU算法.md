@@ -91,3 +91,81 @@ public:
 };
 ```
 
+## LFU算法
+https://leetcode.cn/problems/lfu-cache/
+```c++
+class LFUCache {
+public:
+    int size;
+    int cap;
+    int minFreq;
+    unordered_map<int, int> key2val;
+    unordered_map<int, int> key2freq;
+    unordered_map<int, list<int>> freq2keys;
+    unordered_map<int, list<int>::iterator> key2iterator;
+    LFUCache(int capacity) 
+        : size(0), cap(capacity), minFreq(0),
+          key2val(unordered_map<int, int>()),
+          key2freq(unordered_map<int, int>()),
+          freq2keys(unordered_map<int, list<int>>()),
+          key2iterator(unordered_map<int, list<int>::iterator>()) {
+
+    }
+
+    void addListNode(int key) {
+        if (freq2keys.find(key2freq[key]) == freq2keys.end())
+            freq2keys[key2freq[key]] = list<int>();
+        freq2keys[key2freq[key]].push_front(key);
+        key2iterator[key] = freq2keys[key2freq[key]].begin();
+    }
+
+    void delListNode(int key) {
+        list<int>& l = freq2keys[key2freq[key]];
+        l.erase(key2iterator[key]);
+        if (l.empty())
+            freq2keys.erase(key2freq[key]);
+        key2iterator.erase(key);
+    }
+
+    void increaseFreq(int key) {
+        delListNode(key); // del old
+        if (key2freq[key] == minFreq && freq2keys.find(key2freq[key]) == freq2keys.end()) {
+            minFreq += 1;
+        }
+        key2freq[key] += 1; // increase freq
+        addListNode(key);
+    }
+
+    int get(int key) {
+        if (key2val.find(key) == key2val.end())
+            return -1;
+        increaseFreq(key);
+        return key2val[key];
+    }
+    
+    void put(int key, int value) {
+        if (key2val.find(key) != key2val.end()) { // 已经存在
+            key2val[key] = value; // update val
+            increaseFreq(key);
+        } else {
+            if (size == cap) { // del add
+                int delKey = freq2keys[minFreq].back();
+                delListNode(delKey);
+
+                key2val.erase(delKey);
+                key2freq.erase(delKey);
+
+                size -= 1;
+            }
+            key2val[key] = value;
+            key2freq[key] = 1;
+
+            addListNode(key); // add new
+
+            minFreq = 1;
+            size += 1;
+        }
+    }
+};
+```
+
