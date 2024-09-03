@@ -9,12 +9,13 @@ string.resize(string.size() + cnt);
 string.substr()
 
 // 字符流的使用
+string str;
 stringstream ss(str);
 vector<string> words;
 string word;
 while (getline(ss,word,' ')){
     if (!word.empty())
-        words.push_back(word);s
+        words.push_back(word);
 }
 ss.clear();// 重置状态
 ss.str() = "";// 清空流
@@ -23,11 +24,6 @@ ss.str() = "";// 清空流
 scanf("%d-%d-%d, &n1, &n2, &n3);
 printf("%d-%02d-%02d\n", y, m, d);
 printf("%-06.2lf\n", num);// 0表示填充的字符，6表示整个数的位宽，2表示精确到几位小数，%-2d表示左对齐，不加-表示默认右对齐
-
-// 位运算
-位运算符：& ｜ ^异或  ~取反  >>右移  <<左移
-无符号左右移位，可以先将变量变为unsigned类型，再左右移位
-
 ```
 ---
 ## STL
@@ -118,121 +114,9 @@ int main(int argc, char* argv[]) {
 ```
 
 ---
-## 算法与数据结构
+## 数据结构
 
-###  一、算法
-
-#### 1.sort
-
-```c++
-#include <algorithm>
-using namespace std;
-bool cmp(int lhs, int rhs){// 数组元素类型
-    // 此函数是相当于重载<号，所以两个元素相等时return false
-    if (lhs < rhs){
-        return true;
-    }else{
-        return false;
-      	// 永远让比较函数对相同元素返回false
-    }
-}
-
-int arr[5] = {1,3,5,2,10};
-//begin是第一个元素，end是最后一个元素的后一个位置
-sort(arr, arr+5, &cmp);// sort(begin,end,&func)
-
-```
-
-#### 2.binarySearch
-
-```c++
-bool binarySearch(int arr[], int value, int left, int right){
-    while (left <= right){// 相等时仍要进入循环
-        int mid = (left+right)/2;
-        if (arr[mid] == value){
-            return true;
-        }else{
-            if (arr[mid] < value){
-                left = mid+1;
-            }else{
-                right = mid-1;
-            }
-        }
-    }
-    return false;
-}
-```
-
-#### 3.广度优先遍历
-
-```c++
-#include <cstdio>
-#include <queue>
-#include <cmath>
-using namespace std;
-
-int main() {
-    int n;
-   
-    scanf("%d", &n);
-
-    queue<long long> q;
-    long long first = 1;// 第一个元素入队
-    q.push(first);
-
-    while (!q.empty()){
-        long long cur = q.front();// 出队
-        q.pop();
-        if (cur % n == 0){// 访问
-            printf("%lld\n",cur);
-            break;
-        }
-
-        q.push(cur*10);// 邻接点入队
-        q.push(cur*10+1);// 邻接点入队
-    }
-    return 0;
-}
-```
-
-#### 4.qsort
-
-```c++
-#include <iostream>
-#include <stdlib.h>
-using namespace std;
-char arr[5] = { 'b','c','a','h','d' };
-
-int cmp (const void * a, const void * b)
-{
-    char *p1 = (char*)a;
-    char *p2 = (char*)b;
-    if (*p1 < *p2)
-        return -1;
-    else if (*p1 == *p2)
-        return 0;
-    else
-        return 1;
-}
-int func(int a){
-    cout << a << endl;
-    return 0;
-}
-int main()
-{
-    int(*pFunc)(int) = &func;//函数指针的声明
-    pFunc = &func;//函数指针的赋值
-    pFunc(10);//函数指针的调用
-    
-    qsort(arr, 5, sizeof(char), &cmp);
-
-    return(0);
-}
-```
-
-### 二、数据结构
-
-#### 1.map
+### 1.map
 
 ```c++
 #include <cstdio>
@@ -296,7 +180,7 @@ int main() {
 }
 ```
 
-#### 2.set
+### 2.set
 
 ```c++
 set<int> s;// 元素唯一，且有序，底层为红黑树
@@ -305,7 +189,7 @@ s.count(val);
 s.find(val);
 ```
 
-#### 3.string
+### 3.string
 
 ```c++
 #include <cstdio>
@@ -354,7 +238,7 @@ using namespace std;
     str.clear()
 ```
 
-#### 4.vector
+### 4.vector
 
 ```c++
 #include <cstdio>
@@ -388,7 +272,7 @@ using namespace std;
     v1.erase(it);// 指定位置删除
 ```
 
-#### 5.list
+### 5.list
 ```c++
 #include <iostream>
 #include <cstdio>
@@ -421,7 +305,7 @@ int main(){
 }
 ```
 
-#### 6.queue
+### 6.queue
 
 ```c++
 #include <queue>
@@ -436,7 +320,7 @@ q.pop();// 队头弹出
 type = q.front();// 获取队头元素
 ```
 
-#### 7.stack
+### 7.stack
 
 ```c++
 #include <stack>
@@ -451,136 +335,7 @@ myStack.pop();
 type = myStack.top();
 ```
 
-#### 8.二叉树
-
-```c++
-#include <cstdio>
-#include <queue>
-using namespace std;
-struct TreeNode{
-    int data;
-    TreeNode * leftChild;// 指向左孩子
-    TreeNode * rightChild;// 指向右孩子
-};
-
-struct QueueNode{
-    TreeNode * parent;
-    bool isLeftIn;
-};
-
-// 层序插入
-void insert(TreeNode * &root, queue<QueueNode *> &myQueue, char data){
-    if (data != '#'){
-        TreeNode * pTreeNode = new TreeNode;
-        //(*p).data = data;
-        pTreeNode->data = data;
-
-        QueueNode * pQueueNode = new QueueNode;
-        pQueueNode->parent = pTreeNode;
-        pQueueNode->isLeftIn = false;
-        myQueue.push(pQueueNode);
-
-        if (root == NULL){
-            //说明插入的是第一个结点
-            root = pTreeNode;
-        }else{
-            QueueNode * pParent = myQueue.front();
-            if (pParent->isLeftIn == false){
-                pParent->parent->leftChild = pTreeNode;
-                pParent->isLeftIn = true;
-            }else{
-                pParent->parent->rightChild = pTreeNode;
-                myQueue.pop();
-                delete pParent;
-            }
-        }
-    }else{
-        if (root != NULL){
-            QueueNode *pParent = myQueue.front();
-            if (pParent->isLeftIn == false){
-                pParent->parent->leftChild = NULL;
-                pParent->isLeftIn = true;
-            }else{
-                pParent->parent->rightChild = NULL;
-                myQueue.pop();
-                delete pParent;
-            }
-        }
-    }
-}
-
-// 层序遍历
-void levelOrder(TreeNode * root){
-    queue<TreeNode *> pos;
-    pos.push(root);
-    while (pos.empty() == false){
-        TreeNode * pCur = pos.front();
-        pos.pop();
-        printf("%c",pCur->data);
-        if (pCur->leftChild != NULL){
-            pos.push(pCur->leftChild);
-        }
-        if (pCur->rightChild != NULL){
-            pos.push(pCur->rightChild);
-        }
-    }
-    printf("\n");
-}
-
-void preOrder(TreeNode * root){
-    if (root == nullptr){
-        return;
-    }else{
-        printf("%c",root->data);
-        preOrder(root->leftChild);
-        preOrder(root->rightChild);
-    }
-}
-void midOrder(TreeNode * root){
-    if (root == nullptr){
-        return;
-    }else{
-        midOrder(root->leftChild);
-        printf("%c",root->data);
-        midOrder(root->rightChild);
-    }
-}
-void postOrder(TreeNode * root){
-    if (root == nullptr){
-        return;
-    }else{
-        postOrder(root->leftChild);
-        postOrder(root->rightChild);
-        printf("%c",root->data);
-    }
-}
-
-int main() {
-    TreeNode * root = NULL;// 指向根结点
-    char arr[] = "abc##de#g##f###";
-
-    queue<QueueNode *> myQueue;// 新结点父亲的位置，以及左孩子是否插入
-
-    for (int i = 0; arr[i] != '\0'; ++i) {
-        insert(root,myQueue,arr[i]);
-    }
-
-    levelOrder(root);
-
-    preOrder(root);
-    printf("\n");
-
-    midOrder(root);
-    printf("\n");
-
-    postOrder(root);
-    printf("\n");
-
-    return 0;
-}
-```
-
-#### 9.priority_queue(堆)
+### 9.priority_queue(堆)
 
 ```c++
 #include <cstdio>
@@ -649,9 +404,9 @@ int main() {
 }
 ```
 
-### 三、常见函数以及头文件
+## 三、常见函数以及头文件
 
-#### 1.内存布局
+### 内存布局
 
 堆：new、delete
 
@@ -673,7 +428,7 @@ int main() {
 
 BSS段：未初始化的全局、静态变量
 
-#### 2.程序过程
+### 程序过程
 
 预处理
 
@@ -683,7 +438,7 @@ BSS段：未初始化的全局、静态变量
 
 链接
 
-#### 3.头文件
+### 头文件
 
 string
 
@@ -730,17 +485,7 @@ getline(cin/stringstream,string,'\n')
 使用指针前要验证指针是否为空
 ```
 
-### 四、常见问题
-
-#### 1.闰年：
-
-year %400 == 0 || (year %100 != 0 && year %4 == 0)
-
-#### 2.判断某一月份有多少天：
-
-monthDay[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31}
-
-#### 3.格式打印：
+### 格式打印：
 
 printf("%04d\n", year); 
 
@@ -771,107 +516,6 @@ int main(){
     printf("%-04d\n", num3);// 默认左对齐
 
     return 0;
-}
-```
-
-
-
-#### 4.递归
-
-```c++
-int func(int num){
-    if (num == 1 || num == 2){
-        return 1;
-    }else{
-        return ( func(num-1) + func(num-2) );
-    }
-}
-int main(){
-    double n;
-    cin >> n;
-
-    //1 1 2 3 5 8 13
-    for (int i = 1; i <= n; ++i) {
-        int a;
-        cin >> a;
-        cout << func(a) << endl;
-    }
-
-    return 0;
-}
-```
-
-#### 5.判断质数
-
-```c++
-bool isPrimeNum(int num){
-  	//质数又称素数。一个大于1的自然数，除了1和它自身外，不能被其他自然数整除的数叫做质数；否则称为合数（规定1既不是质数也不是合数）。
-    if (num == 1){
-        return false;// 1不是质数！！！！！！！！
-    }
-    for (int i = 2; i <= sqrt(num); ++i) {
-        if (num %i == 0){
-            return false;
-        }
-    }
-    return true;
-}
-```
-
-#### 6.反转数字
-
-```c++
-int reverse(int n){
-    int num = 0;
-    while (n > 0){
-        num = num * 10 + n % 10;
-        n /= 10;
-    }
-    return num;
-}
-```
-
-#### 7.指针和引用
-
-```c++
-void swap(int * x, int * y){
-    int temp = *x;
-    *x = *y;
-    *y = temp;
-}
-
-void swap(int & x, int & y){
-    int temp = x;
-    x = y;
-    y = temp;
-}
-
-int main(){
-  
-}
-```
-
-```c++
-int * addInt(int value){
-    int * p = new int;
-    *p = value;
-    return p;
-}
-
-int main() {
-    int * p = addInt(1);
-    printf("%d",*p);
-    delete p;
-
-    return 0;
-}
-```
-
-#### 8. for
-
-```c++
-for (auto &elem : vec){
-  	cout << elem << endl;
 }
 ```
 
